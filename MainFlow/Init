@@ -1,0 +1,39 @@
+CONST PI = 3.1415926
+VAR Violance = 0
+VAR Diplomacy = 0
+VAR Stewardship= 0
+VAR Knowledge = 0
+VAR Intrigue = 0
+VAR Stress = 0
+VAR Gold = 0
+VAR All_init_points = 20
+VAR Gender = ""
+VAR Luck = 0
+VAR Day = 0
+VAR Bless = ""
+VAR Fame = 50
+VAR HealthCondition = 50
+VAR Endday = 100
+VAR ConvertCount = 0
+VAR WeeklyExpense = 50
+LIST Weather = (sunny),(rainy),(cloudy),(snowy),(foggy),(gusty),(lightning)
+VAR TodayWeather = ""
+LIST Blessing= (optimistic),(potential),(greedy),(gregarious),(strong),(scholar),(deceitful)
+VAR Actions = 10
+LIST Time = (morning), (noon), (afternoon), (evening), night, midnight
+LIST Location = (council), (bank) , (camp), (school), (agency), church,sewer, manor, riverside, forest, cave
+LIST random_events = (Null)
+
+
+VAR idx = 1
+
+===function test(->list)
+    {list(idx)}
+    {
+        - idx <=3:
+            {idx}
+            function(list)
+        - else:
+            ~ return "D"
+            
+    }

@@ -1,0 +1,145 @@
+===function conflict_check(stat, opp_stat)
+    ~temp diff = stat - opp_stat
+    {
+        - diff||(-1*diff) >=50:
+        {
+            - roll_dice(20, 15):
+                The conflict is end before it starts.
+                {   
+                    - diff > 0:
+                        ~return true
+                    - else:
+                        ~return false
+                }
+            -else:
+                ~temp thres = 10 + diff/10.0
+                {
+                    - roll_dice(20, thres):
+                        ~return true
+                    - else:
+                        ~return false
+                }
+        }
+    }
+    
+
+
+===function roll_dice(range, thres)
+    ~temp result = RANDOM(1, range)
+    {
+        - result >= thres:
+            ~return true
+        
+        - else:
+            ~return false
+    }
+    
+===function common_end_checker()
+    {
+        - HealthCondition <= 0:
+            Although the Lord giveth you the chance to survive, the fresh body you have can not endure physical torture anymore...
+            ~return true
+            
+        - Stress >= 100:
+            And if you gaze long into an abyss, the abyss also gazes into you. Clearly, the abyss gazes deeper...
+            ~return true
+            
+        - Day > 25 and ConvertCount < 2:
+            Maybe you haven't forgot the mission, but the mission forgets you. Without the power, you eternally trapped in the city.
+            ~return true
+            
+    }
+
+
+===function gold_checker()
+    {   
+        - Gold < 0:
+            ~return "I am in debt... of {-Gold} Gold."
+        
+        - Gold == 0:
+            ~return "I am pennyiless now. Hey, Bin, spare me some money!"
+            
+        - else:
+            ~return "I still have {Gold} Gold."
+    }
+
+===function health_checker()
+    {   
+        - HealthCondition <= 25:
+            ~return "I need ambulance..."
+        
+        - HealthCondition <= 10:
+            ~return "ASPIRINE ASPIRINE ASPIRINE ASPIRINE"
+        
+        - HealthCondition >= 75:
+            ~return "I am energtic now."
+        
+        - HealthCondition >= 90:
+            ~return "POWEROVERWHELMING"
+        
+        - HealthCondition > 100:
+            ~ activated_special_events += (Special_event_chain_activation)
+            ~return "Faster, Higher, Stronger."
+        
+        - else:
+            ~return "My condition is just so-so."
+    }
+    
+===function stress_checker()
+        ~temp stress_level = Stress / 20
+    {   
+        - stress_level == 0:
+            ~return "I feel relaxed... so far..."
+            
+        - stress_level == 1:
+            ~return "I need some ways to release my stress."
+        
+        - stress_level == 2:
+            ~return "Dopamine could be only my friend."
+        
+        - stress_level == 3:
+            ~return "Concentration...Concentration...Concent..."
+        
+        - stress_level == 4:
+           ~ activated_special_events += (Special_event_chain_activation)
+            ~return "***********!!!*****!**!*******!***..."
+
+    }
+    
+===function luck_checker()
+        ~temp thres = 10 - Luck/10.0
+        {
+            - roll_dice(20, thres):
+                ~return true
+            - else:
+                ~return false
+        }
+
+    
+===function special_event_checker(event_log, repeat)
+    
+    {
+        - repeat == false:
+            ~return false
+    }
+
+===function special_event_generator()
+    ~ temp time = LIST_RANDOM(Time)
+    ~ temp npc = LIST_RANDOM(NPC)
+    ~ temp location = LIST_RANDOM(Location)
+    ~ temp event = underline_keys(time, location, npc)
+    {
+        - random_events has event:
+            Deja vu.
+        - else:
+            ~ random_events += event
+    }
+    
+
+
+
+
+===function underline_keys(key1,key2,key3)
+    ~return "{key1}_{key2}_{key3}"
+    
+    
