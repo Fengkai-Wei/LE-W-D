@@ -1,4 +1,5 @@
 CONST PI = 3.1415926
+//My status
 VAR Violance = 0
 VAR Diplomacy = 0
 VAR Stewardship= 0
@@ -16,24 +17,31 @@ VAR HealthCondition = 50
 VAR Endday = 100
 VAR ConvertCount = 0
 VAR WeeklyExpense = 50
-LIST Weather = (sunny),(rainy),(cloudy),(snowy),(foggy),(gusty),(lightning)
-VAR TodayWeather = ""
-LIST Blessing= (optimistic),(potential),(greedy),(gregarious),(strong),(scholar),(deceitful)
 VAR Actions = 10
-LIST Time = (morning), (noon), (afternoon), (evening), night, midnight
-LIST Location = (council), (bank) , (camp), (school), (agency), church,sewer, manor, riverside, forest, cave
+VAR Personality = ""
+VAR Level = 0
+VAR MyLoc = ""
+VAR Interactions = 20
+VAR Charm = 0
+VAR MyTime = ""
+VAR MyShame = 0
+
+//
+VAR Securaty = ""
+
+//General status
+VAR Population = 100
+LIST PersonalityPool = (brave),(honest),(temperate),(calm),(paranoid),ambitious,vengeful,incapable
+LIST Weather = (sunny),(rainy),(cloudy),(snowy),(foggy),(gusty),(lightning), dark
+VAR TodayWeather = ""
+LIST Blessing = (optimistic),(potential),(greedy),(gregarious),(strong),(scholar),(deceitful)
+LIST SecuratyLevel = (peaceful), (safe),(normal),(dangerous), (curfew)
+LIST Time = (morning), (noon), (afternoon), (dusk),(evening), night, midnight
+LIST BasicLocation = (council), (bank) , (camp), (school), (agency) 
+LIST SpecialLocation = church, sewer, manor, riverside, forest, cave, shop,casino,lake
 LIST random_events = (Null)
-
-
-VAR idx = 1
-
-===function test(->list)
-    {list(idx)}
-    {
-        - idx <=3:
-            {idx}
-            function(list)
-        - else:
-            ~ return "D"
-            
-    }
+LIST GenderPool = (male),(female),(undefined)
+LIST ProsperityPool = (villige),(town),(city),(capital)
+VAR Prosperity = villige
+LIST Exercise = (walking),(daydreaming),(singing)
+//

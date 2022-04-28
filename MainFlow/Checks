@@ -1,37 +1,53 @@
 ===function conflict_check(stat, opp_stat)
     ~temp diff = stat - opp_stat
     {
-        - diff||(-1*diff) >=50:
-        {
+        - (diff||(-1*diff)) >=30:
+            {
             - roll_dice(20, 15):
                 The conflict is end before it starts.
                 {   
                     - diff > 0:
                         ~return true
                     - else:
+                        ~Stress += 10
                         ~return false
                 }
-            -else:
-                ~temp thres = 10 + diff/10.0
-                {
-                    - roll_dice(20, thres):
-                        ~return true
-                    - else:
-                        ~return false
-                }
-        }
+            }
+        -else:
+            ~temp thres = 6 + INT(diff/10.0)
+            {
+                - roll_dice(20, thres):
+                    ~return true
+                - else:
+                    ~Stress += 2
+                    ~return false
+                        
+            }
+        
     }
     
-
+===function flavour_events_checker()
+    {
+        - luck_checker():
+            #Flavor event start
+            
+        
+    }
 
 ===function roll_dice(range, thres)
     ~temp result = RANDOM(1, range)
-    {
-        - result >= thres:
-            ~return true
+    {   
+        - thres > 1:
+        {
+            - result >= thres:
+                ~return true
+            
+            - else:
+                ~return false
+        }
         
         - else:
-            ~return false
+            ~ return true
     }
     
 ===function common_end_checker()
@@ -65,16 +81,16 @@
 
 ===function health_checker()
     {   
-        - HealthCondition <= 25:
+        - HealthCondition <= 25 and HealthCondition > 10:
             ~return "I need ambulance..."
         
         - HealthCondition <= 10:
             ~return "ASPIRINE ASPIRINE ASPIRINE ASPIRINE"
         
-        - HealthCondition >= 75:
+        - HealthCondition >= 75 and HealthCondition < 90:
             ~return "I am energtic now."
         
-        - HealthCondition >= 90:
+        - HealthCondition >= 90 and HealthCondition <= 100:
             ~return "POWEROVERWHELMING"
         
         - HealthCondition > 100:
@@ -95,7 +111,7 @@
             ~return "I need some ways to release my stress."
         
         - stress_level == 2:
-            ~return "Dopamine could be only my friend."
+            ~return "Dopamine could be my only friend."
         
         - stress_level == 3:
             ~return "Concentration...Concentration...Concent..."
@@ -106,35 +122,102 @@
 
     }
     
+===function faith_checker()
+    {   
+        - Faith <= 0: 
+            ~ return "{TempName} is your follower already."
+        
+        - Faith > 0 and Faith <=25:
+            ~ return "You can feel that {TempName} struggles to keep calm."
+            
+        - Faith > 25 and Faith <= 50:
+            ~ return "{TempName} moves {DB_accusative(TempName)} eyes away..."
+        
+        - Faith > 50 and Faith <= 75:
+            ~ return "{TempName} is still a hard to handle..."
+            
+        - Faith > 75 and Faith <= 100: 
+            ~ return "{TempName}'s mind is determined."
+    
+    }
+
+
+
+
 ===function luck_checker()
-        ~temp thres = 10 - Luck/10.0
+        ~temp thres = 10 - Luck/15.0
         {
             - roll_dice(20, thres):
                 ~return true
             - else:
                 ~return false
         }
-
-    
-===function special_event_checker(event_log, repeat)
-    
-    {
-        - repeat == false:
-            ~return false
-    }
-
-===function special_event_generator()
-    ~ temp time = LIST_RANDOM(Time)
-    ~ temp npc = LIST_RANDOM(NPC)
-    ~ temp location = LIST_RANDOM(Location)
-    ~ temp event = underline_keys(time, location, npc)
-    {
-        - random_events has event:
-            Deja vu.
+        
+===function fame_checker()
+    {   
+        - Fame <= 25 and Fame > 10:
+            ~return "Citizens regard me as cipher."
+        
+        - Fame <= 10:
+            ~return "Furies from dwellers take my breath away."
+        
+        - Fame >= 75 and Fame < 90:
+            ~return "I enjoy a good reputation here."
+        
+        - Fame >= 90 and Fame <= 100:
+            ~return "People admire me as a Savior."
+        
+        - Fame > 100:
+            ~ activated_special_events += (Special_event_chain_activation)
+            ~return "This place is becoming my second hometown."
         - else:
-            ~ random_events += event
+            ~return "There is no particular gossips about me."
     }
     
+===function special_event_checker()
+    ~return false
+
+===function time_checker()
+    {Actions/2:
+        - 5:
+            ~ MyTime = morning
+        - 4:
+            ~ MyTime = noon
+        - 3:
+            ~ MyTime = afternoon
+        - 2:
+            ~ MyTime = dusk
+        - 1:
+            ~ MyTime = evening
+        - 0:
+            ~ MyTime = night
+        - else:
+            ~ MyTime = midnight
+    }
+
+===function pop_density()
+    ~ return Population*1.0/LIST_COUNT(LIST_ALL(BasicLocation+SpecialLocation)) 
+    
+===function pop_checker()
+    {BasicLocation has MyLoc:
+        - true: 
+            ~ return true
+        - false:
+            
+        
+    }
+=== function full_list(list)
+    {list:
+        ~ temp entry = LIST_MIN(list)
+        {entry}
+        {
+            - LIST_COUNT(list) > 2:
+            <>, <>
+            - LIST_COUNT(list) == 2:
+            <> and <>
+        }
+        {full_list(list - entry)}
+    }
 
 
 
@@ -142,4 +225,14 @@
 ===function underline_keys(key1,key2,key3)
     ~return "{key1}_{key2}_{key3}"
     
-    
+===function settlement(level,status,opp_status)
+    ~ Interactions -= level
+    ~ temp max = 1+ (INT(200/(10.0/level))*2)
+    ~ temp judge = conflict_check(status, opp_status)
+    {judge:   
+        - true:
+            ~ Faith -= RANDOM(INT(max/20),INT(max/3))
+            ~ return "It works!"
+        - false:
+            ~ return "It far from satisfactory..."
+    }

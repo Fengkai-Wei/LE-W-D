@@ -66,7 +66,7 @@
     *[Let's begin.]->days
 
 
-===daily_interaction
+===daily_activity
     {
         - Actions > 0:
         I still have spare time...
@@ -88,13 +88,12 @@
     + [Everything is done.] One day more. Anotherday, another destiny.
     ~temp night_exp = 0
         {
-            - Actions <= -2 and Actions > -5:
-                night_exp += 1 
-                    {
-                        - night_exp == 2:
-                            ~Time += night
-                            #You unlocked time: night.
-                    }
+            - Actions >= -2 and Actions < -5:
+                ~ Time += night
+                    #You unlocked time: night.
+            - Actions > -5:
+                ~ Time += midnight
+                    #You unlocked time: midnight.
         }
         ~HealthCondition += Actions
         ->daily_check
@@ -114,30 +113,9 @@
     
     +[Okay.]->days
 
-===militray_daily_event
-    militray_daily_event
-    ~Actions -= 2
-    +[Done.]->daily_interaction
 
-===council_daily_event
-    council_daily_event
-    ~Actions -= 2
-    +[Done.]->daily_interaction
-    
-===bank_daily_event
-    bank_daily_event
-    ~Actions -= 2
-    +[Done.]->daily_interaction
 
-===school_daily_event
-    school_daily_event
-    ~Actions -= 2
-    +[Done.]->daily_interaction
-    
-===agency_daily_event
-    agency_daily_event
-    ~Actions -= 2
-    +[Done.]->daily_interaction
+
 
 
 

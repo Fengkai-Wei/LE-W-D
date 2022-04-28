@@ -1,0 +1,162 @@
+===function DB_prosperity(pros)
+    {pros:
+        - villige: 
+            ~ return 1
+        - town: 
+            ~ return 2
+        - city: 
+            ~ return 3
+        - capital: 
+            ~ return 4
+    }
+
+LIST activated_special_events = touch_with_who_event,Special_event_chain_activation, Special_event_chain_activation_1
+
+===function DB_special_events_handle()
+    ~ return 0
+
+
+===function DB_accusative(gender)
+    {gender:
+        - male:
+            ~ return "him"
+        - female:
+            ~ return "her"
+        - undefined:
+            ~ return "its"
+    
+        }
+    
+LIST NPC = (militia),(solider),(captain),(general), (teller),(manager),(supervisor),(director),(receptionist),(functionary),(MP),(minister),(pupil),(assistant),(lecturer),(professor),(theif),(cheater),(scammer),(spymaster)
+
+
+===function DB_security_factor(security)
+    {security:
+        - peaceful:
+            ~ return 5
+        - safe:
+            ~ return 10            
+        - normal:
+            ~ return 20    
+        - dangerous:
+            ~ return 35    
+        - curfew:
+            ~ return 50    
+    
+    
+    
+    
+    
+    
+    }
+
+===function DB_rank(npc)
+    {npc:
+        - militia:
+            ~ return 1
+        - teller:
+            ~ return 1
+        - receptionist:
+            ~ return 1
+        - pupil:
+            ~ return 1
+        - theif:
+            ~ return 1
+            
+        - solider:
+            ~ return 2
+        - manager:
+            ~ return 2
+        - functionary:
+            ~ return 2
+        - assistant:
+            ~ return 2
+        - cheater:
+            ~ return 2
+            
+        - captain:
+            ~ return 3
+        - supervisor:
+            ~ return 3
+        - MP:
+            ~ return 3
+        - lecturer:
+            ~ return 3
+        - scammer:
+            ~ return 3
+            
+        - general:
+            ~ return 4
+        - receptionist:
+            ~ return 4
+        - minister:
+            ~ return 4
+        - professor:
+            ~ return 4
+        - spymaster:
+            ~ return 4
+
+    }
+
+===function DB_class(npc)
+    {npc:
+
+        - militia:
+            ~ return "camp"
+        - solider:
+            ~ return "camp"
+        - captain:
+            ~ return "camp"
+        - general:
+            ~ return "camp"
+        - teller:
+            ~ return "council"
+        - manager:
+            ~ return "council"
+        - supervisor:
+            ~ return "council"
+        - director:
+            ~ return "council"
+        - receptionist:
+            ~ return "council"
+        - functionary:
+            ~ return "council"
+        - MP:
+            ~ return "council"
+        - minister:
+            ~ return "council"
+        - pupil:
+            ~ return "school"
+        - assistant:
+            ~ return "school"
+        - lecturer:
+            ~ return "school"
+        - professor:
+            ~ return "school"
+        - theif:
+            ~ return "agency"
+        - cheater:
+            ~ return "agency"
+        - scammer:
+            ~ return "agency"
+        - spymaster:
+            ~ return "agency"
+        
+    }
+    
+LIST 5V = (Vio),(Dip),(Stp),(Klg),(Itg)
+
+===function DB_status_class(sta)
+    {sta:
+        - Vio:
+            ~ return "camp"
+        - Dip:
+            ~ return "council"
+        - Stp:
+            ~ return "bank"
+        - Klg:
+            ~ return "school"
+        - Itg:
+            ~ return "agency"
+        
+    }

@@ -1,0 +1,154 @@
+/*
+
+
+
+
+
+
+*/
+
+
+
+
+=== camp_outside
+    Sitting at the campfire. You decide to
+    + {activated_special_events !? touch_with_who_event}Sleep anyway.[] You can feel something indescribable is wandering nearby. As you fall asleep, something this stepping around...maybe it's only a dream. 
+        # touch with who event chain triggered
+        ~ activated_special_events += (touch_with_who_event)
+        When you wake up next day, you forget everything you dreamed last night. 
+        You decide to: ->camp_loop
+    
+    + {activated_special_events ? touch_with_who_event} Sleep anyway.[]This night is horribly peaceful.
+        You decide to: ->camp_loop
+       
+
+    + Keep vigilant[.] until sunrise.
+        # stress level
+        ~ Stress += 1
+        {Stress}
+        As you the Sun rises again from the east, you feel less panic. But the atomsphere of the city dims the light of Sun. 
+        Although you are sleepy, you decide to.
+        ->camp_loop
+        
+===camp_loop
+    *Start your mission.
+        ->initial_status
+    
+    +Camp outside one more day.
+        ->camp_outside
+
+===special_random_event_starter
+    <>have an advanture?
+    +[Visit random location you found.]
+        ~ TempNPC = LIST_RANDOM(NPC)
+        ~ MyLoc = LIST_RANDOM(BasicLocation + SpecialLocation)
+        ~ MyTime = LIST_MIN(Time)
+        ~ Interactions = 20
+        It's {MyTime}, you went to the {MyLoc} 
+
+        {roll_dice(20,10) == true:->interaction|->activity}
+        
+===event_terminater
+    ~ temp spend_time = RANDOM(2,4)
+    ~ Actions -= spend_time
+    +[It costs me {spend_time} hours, my time is valuable.]
+        ->daily_activity
+
+===interaction
+//With NPC
+
+    {general_npc_generator(Day, Level)}
+
+    <> and found the {TempNPC} {TempName} is {LIST_RANDOM(Exercise)} here. 
+    I still have {Interactions} Interaction.
+    {TempVio},{Violance}
+    {TempDip},{Diplomacy}
+    {TempStp},{Stewardship}
+    {TempKlg},{Knowledge}
+    {TempItg},{Intrigue}
+    ~ Faith -= INT((Fame - 50)*0.5)
+    
+    
+    +[Communicate]Communicate//Communicate (Knowledge || Diplomacy): unlock npcs and new locations, increase status,
+
+    +[Trade]//Trade (Stewardship || Gold): sell and by items/treasure if you can. 
+
+    +[Competition]//Competition (Violance || Intrigue)
+    
+    +[I can do sth different...]//Special action (checker || status): E.g steal money, seduce opposite sex (of course homo if you can certian personality), ,  
+
+    +[Preach!]//Preach
+        -(continue)
+        {faith_checker()}
+        {
+            - Faith > 0 and Interactions > 0:
+                +{Violance >= TempVio}[Brute force gets brute wins.]You tried to force {TempName} with Violance...
+                    ->preach(->continue,Violance, TempVio)
+                +{Diplomacy >= TempDip}[Negotiation.]You are going to demonstrate your Diplomatic skills...
+                    ->preach(->continue,Diplomacy, TempDip)
+                +{Stewardship >= TempStp}["You don't despise wealthy, do you, {TempName}?"]Shiny things may speak louder than voice...
+                    ->preach(->continue,Stewardship, TempStp)
+                +{Knowledge >= TempKlg}France is Bacon[!]...sorry, Knowledge is Power.
+                    ->preach(->continue,Knowledge, TempKlg)
+                +{Intrigue >= TempItg}[Little birds told me...]Some Intrigue tricks should be enough to daunt {TempName}. 
+                    ->preach(->continue,Intrigue, TempItg)
+        }
+                +[It's pointless to keep wandering here.]You tried sth you can do...
+                    {   
+                        - Faith > 0:
+                            <>but in vain, {TempName} didn't change {DB_accusative(TempGender)} mind.
+                        - else:
+                            
+                            <>and successfully converted {TempName} as a follower.
+                            
+                    }
+                    ~ Stress += -5 * Interactions
+    -->event_terminater
+    
+    
+===preach(->back,status,opp_status)
+    ~ temp cost = RANDOM(1,5)
+    You decided to preach {TempName}... It will cost you {cost} Interaction.
+    +[Go on!]{settlement(cost,status,opp_status)}
+    
+    +[Probably not.]
+    
+    -->back
+    
+===trade(->back)
+    ~ temp cost = RANDOM(1,5)
+    You decided to preach {TempName}... It will cost you {cost} Interaction.
+    +[Go on!]
+    
+    +[Probably not.]
+    -->back
+
+===communicate(->back)
+    ~ temp cost = RANDOM(1,5)
+    You decided to preach {TempName}... It will cost you {cost} Interaction.
+    +[Go on!]
+    
+    +[Probably not.]
+    -->back
+    
+===competition(->back)
+    ~ temp cost = RANDOM(1,5)
+    You decided to preach {TempName}... It will cost you {cost} Interaction.
+    +[Go on!]
+    
+    +[Probably not.]
+    -->back
+
+===special_interacts(->back)
+    ~ temp cost = RANDOM(1,5)
+    You decided to preach {TempName}... It will cost you {cost} Interaction.
+    +[Go on!]
+    
+    +[Probably not.]
+    -->back
+    
+===activity
+    <> alone.
+    ~ temp density = pop_density() 
+    ->END
+    

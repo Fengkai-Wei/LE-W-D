@@ -1,0 +1,4 @@
+===bank_daily_event
+    bank_daily_event
+    ~Actions -= 2
+    +[Done.]->daily_activity

@@ -1,0 +1,13 @@
+LIST namePool = (sam),(jake),(Mary),(sushi)
+
+===function DB_name(age)
+	{age:
+		-sam:
+			~ return 28
+		-jake:
+			~ return 24
+		-Mary:
+			~ return 18
+		-sushi:
+			~ return 24
+		}

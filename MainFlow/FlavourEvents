@@ -1,49 +1,12 @@
+===flavour_event_main
+    ~ temp encounter = RANDOM(0,50)
+    {encounter:
+        - 1:
+        - 2:
+        - 3:
+        - 4:
+        - else: ->END
+    }
 
-LIST activated_special_events = touch_with_who_event,Special_event_chain_activation, Special_event_chain_activation_1
-
-
-
-=== camp_outside
-    Sitting at the campfire. You decide to
-    + {activated_special_events !? touch_with_who_event}Sleep anyway.[] You can feel something indescribable is wandering nearby. As you fall asleep, something this stepping around...maybe it's only a dream. 
-        # touch with who event chain triggered
-        ~ activated_special_events += (touch_with_who_event)
-        When you wake up next day, you forget everything you dreamed last night. 
-        You decide to: ->camp_loop
-    
-    + {activated_special_events ? touch_with_who_event} Sleep anyway.[]This night is horribly peaceful.
-        You decide to: ->camp_loop
-       
-
-    + Keep vigilant[.] until sunrise.
-        # stress level
-        ~ Stress += 1
-        {Stress}
-        As you the Sun rises again from the east, you feel less panic. But the atomsphere of the city dims the light of Sun. 
-        Although you are sleepy, you decide to.
-        ->camp_loop
-        
-=== camp_loop
-    *Start your mission.
-        ->initial_status
-    
-    +Camp outside one more day.
-        ->camp_outside
-
-===special_random_event_starter
-    <>have an advanture?
-
-    
-    *[Visit this mark on the map.]
-        -> END
-
-    
-    
-===special_event_terminater
-    ~ temp spend_time = RANDOM(2,6)
-    ~ Actions -= spend_time
-    +[After {spend_time} hours, I finally done it.]
-        ->daily_interaction
-    
-===Special_event_chain
+===flavour_event_1
     ->END

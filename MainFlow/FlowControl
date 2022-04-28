@@ -1,0 +1,81 @@
+
+
+// Divert and Back
+===main_flow
+    A stroy starts.
+    ~ temp if_diverts = 0
+        +[Story diverts]
+        - (continue)
+        {if_diverts ==1 ://If Done it backs.
+            story goes back and move further
+        	   ->END
+        }
+        	+[button 1] to divert 1
+        	    <- diverts_1(-> continue,if_diverts)////If not Done it diverts.
+        	    ->DONE
+        	
+        	+[button 2]to divert 2
+        	    <- diverts_2(-> continue,if_diverts)////If not Done it diverts.
+        	    ->DONE
+
+
+===diverts_1(-> go_back_to,if_diverts)//Diverted event2
+    This is diverts 1
+    +[Back to main flow]
+        ~ if_diverts = 1
+    --> go_back_to
+    
+===diverts_2(-> go_back_to, if_diverts)//Diverted event2
+    This is diverts 2
+    +[Back to main flow]
+        ~ if_diverts = 1
+    --> go_back_to
+    
+    
+//Event chain
+
+VAR event_index = 0
+===event_chain_flow_control(->event_chain_back, is_diverts)
+    ~ temp is_done = 0
+    - (continue)
+    ~ is_diverts = 1
+    {is_done == 0:
+            {event_index:
+                - 0:->event_chain_0(->continue, is_done)
+                - else: 
+                    No more event, you have finished this event chain.
+            }
+    }
+   
+    --> event_chain_back
+
+        
+
+===event_chain_0(->go_back, is_done)
+    Event chain 0
+        +[Do] Event moves on.
+            ~ event_index += 1
+        +[Ignore] Event paused.
+        -~ is_done = 1
+            ->go_back
+        
+
+// example activation of event chain
+===event_flow_main
+    This is main story, and prepare to start new event.
+    
+    //Settings
+    ~ temp is_diverts = 0
+    - (continue)
+        {is_diverts == 1 :
+            //After this line is the main flow.
+            story goes back and move further
+            
+            Now let's turn back to...
+            ->event_flow_main
+            //Above this line is the main flow.
+        }
+            +[event {event_index > 0:moves|starts}]->event_chain_flow_control(->continue, is_diverts)
+    
+    
+    
