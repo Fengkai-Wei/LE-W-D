@@ -1,3 +1,14 @@
+===unlock_military_camp
+    <div><p class="shake">"Hey, You! Remove your Hood!"</p></div>
+    A guard shouts to you, 
+    "And regisiter your profile here!".
+    
+    
+    *[Thanks a lot.]->unlock_city_council
+
+
+
+
 ===militray_daily_event
     militray_daily_event
     ~Actions -= 2

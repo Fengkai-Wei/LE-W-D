@@ -27,7 +27,6 @@
     ~ Stewardship= RANDOM(0, All_init_points)
     ~ Knowledge = RANDOM(0, All_init_points)
     ~ Intrigue = RANDOM(0, All_init_points)
-    ~ random_events = ()
     /*
     {Violance}
     {Diplomacy}
@@ -38,28 +37,8 @@
     ~Bless = LIST_RANDOM(Blessing)
     ->unlock_military_camp
     
-===unlock_military_camp
-    <div><p class="shake">"Hey, You! Remove your Hood!"</p></div>A guard shouts to you, "And regisiter your profile here!".
-    
-    *[Thanks a lot.]->unlock_city_council
 
 
-===unlock_city_council 
-    You entered the city council.
-
-    *[Thanks a lot.]->unlock_bank
-    
-===unlock_bank
-    You entered the bank.
-    *[Thanks a lot.]->unlock_school    
-
-===unlock_school
-    You entered the school.
-    *[Thanks a lot.]->unlock_agency
-
-===unlock_agency
-    You entered the agency.
-    *[Thanks a lot.]->begin_mission
     
 ===begin_mission
     Now I know the basic game rule of this city.

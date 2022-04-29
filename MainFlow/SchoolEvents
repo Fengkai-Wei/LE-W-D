@@ -1,3 +1,9 @@
+===unlock_school
+    You entered the school.
+    *[Thanks a lot.]->unlock_agency
+
+
+
 ===school_daily_event
     school_daily_event
     ~Actions -= 2

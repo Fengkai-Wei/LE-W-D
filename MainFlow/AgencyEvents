@@ -1,3 +1,9 @@
+===unlock_agency
+    You entered the agency.
+    *[Thanks a lot.]->begin_mission
+
+
+
 ===agency_daily_event
     agency_daily_event
     ~Actions -= 2

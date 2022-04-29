@@ -12,6 +12,8 @@ INCLUDE AgencyEvents
 INCLUDE DBfunctions
 INCLUDE FlavourEvents
 INCLUDE FlowControl
+INCLUDE FinalEvent
+
 
 
 
@@ -20,7 +22,7 @@ INCLUDE FlowControl
 Define symbols and expressions:
     
     0. ThisEvent:
-        The text without any decorations stand for a script. It should be a existing script file linked to Main ink file。 In this case, ite Main ink file is "MainFl.ink". All events should be CamelCase.
+        The text without any decorations stand for a script. It should be a existing script file linked to Main ink file�?In this case, ite Main ink file is "MainFl.ink". All events should be CamelCase.
 
     1. "|":
         Arrow in float chart of script. If no "^" to indicate upward direction, script logic flows downwards.
@@ -40,7 +42,7 @@ Define symbols and expressions:
     6. "P" and "N":
         P is short for Pass, and N is Not. They indicate the logic flow after a check happens, which is directly linked by the route where P/N sit on.
         
-    7. "...":
+    7. "(...)":
         3 dots indicate further details of logic flow are stored in the script next to them. Due to the complicity of logic flows, it's impossible to draw them altogether. They are stored by pieces throughout the project.
         
     8. :this_knot: :
@@ -53,7 +55,7 @@ Define symbols and expressions:
 
 
 
-  (Auto Start)
+  (Start)
     |
     |
     |
@@ -67,15 +69,13 @@ Define symbols and expressions:
     |
     |
   MainFlow       [Max Day]
-  (Day Run)<----N----*----P--->FinalEvent...
+  (Day Run)<----N----*----P--->FinalEvent(...)
     |                ^         (End)
     |                |
     |                |
-  Events             |
+  Events(...)        |
   (Daily Activity)--->
-    |                
-    |
-   Events...
+
 
 
 
@@ -84,11 +84,11 @@ FLOW CHART = MainFlow
 This script is the main flow of the game. 
 */
 
-
     You approach a small city in the midnight, where all sorts of vipers and leeches breed in. <hl_pos>Evils</hl_pos> and <hl_pos>Sins</hl_pos> creep underneathe every vessel, waiting for any potential victims, and then break their mind as soon as possible.
 
-    As a new heretic instructor of a LEWD faith, your mission is to convert believes of dissents minds, regardless of their race, social class, even... more.
-
+    As a new Heretic Cultist of a LEWD faith, your mission is to convert believes of dissents minds, regardless of their race, social class, even... more.
+    
+    <img src="Asset/Arts/test.png">
     
 
 

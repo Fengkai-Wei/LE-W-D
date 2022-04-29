@@ -1,3 +1,9 @@
+===unlock_city_council 
+    You entered the city council.
+
+    *[Thanks a lot.]->unlock_bank
+    
+
 ===council_daily_event
     council_daily_event
     ~Actions -= 2

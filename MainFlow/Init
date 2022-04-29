@@ -25,7 +25,7 @@ VAR Interactions = 20
 VAR Charm = 0
 VAR MyTime = ""
 VAR MyShame = 0
-
+VAR MyName = ""
 //
 VAR Securaty = ""
 

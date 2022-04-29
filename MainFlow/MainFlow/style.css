@@ -84,7 +84,6 @@ word
     position: fixed;
     display: block;
     width: 100%;
-    background: white;
     transition: color 0.6s, background 0.6s;
     margin: 0;
     padding-top: 6px;
@@ -102,7 +101,7 @@ word
     margin: 0;
     padding: 0;
     -webkit-overflow-scrolling: touch;
-    overflow: scroll;
+    overflow: visible;
     overflow-x: hidden;
     height: 100%;
     width: 100%;
@@ -123,11 +122,16 @@ word
 
 .container {
     display: block;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    padding-top: 4em;
     background: white;
+    max-width:75%;
+    margin: 0 auto;
+    opacity: 0.8;
+    padding: 100px;
+    position: relative;
+    left:-165px;
+    padding-bottom: 400px;
+    scroll-behavior: smooth;
+    padding-top: 4em;
 }
 
 .switched .container {
@@ -137,9 +141,11 @@ word
 p {
     font-size: 20pt;
     font-family: Tapestry;
-    color: #888;
+    color: black;
+    opacity: 200%;
     line-height: 1.7em;
     font-weight: lighter;
+
 }
 
 a {
@@ -151,7 +157,7 @@ a {
 }
 
 a:hover {
-    color: black;
+    color: deepskyblue;
     transition: color 0.1s;
 }
 
@@ -175,8 +181,8 @@ img {
 }
 
 .container>* {
-    opacity: 1.0;
-    transition: opacity 1.0s;
+    color: rgba(0,0,0, 1);
+    transition: opacity 0.5s;
 }
 
 /*
@@ -185,7 +191,7 @@ img {
 */
 .choice {
     font-family: PT Serif;
-    text-align: center;
+    text-align: left;
     line-height: 1.4em;
 }
 .shake
@@ -269,6 +275,7 @@ img {
     font-family: PT Serif;
     text-align: center;
     line-height: 1.4em;
+
 }
 
 /* 
@@ -285,14 +292,14 @@ img {
 
 #controls {
     z-index: 4;
-    font-size: 9pt;
+    font-size: 15pt;
     text-align: center;
+    color:rgba(255,255,255,0.4);
     padding-bottom: 6px;
     position: fixed;
     right: 14px;
     top: 4px;
     user-select: none;
-    background: white;
     transition: color 0.6s, background 0.6s;
 }
 

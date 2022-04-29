@@ -40,13 +40,16 @@
 ===special_random_event_starter
     <>have an advanture?
     +[Visit random location you found.]
-        ~ TempNPC = LIST_RANDOM(NPC)
-        ~ MyLoc = LIST_RANDOM(BasicLocation + SpecialLocation)
-        ~ MyTime = LIST_MIN(Time)
-        ~ Interactions = 20
-        It's {MyTime}, you went to the {MyLoc} 
+    #ddddddddddddddd
+    ~ MyLoc = LIST_RANDOM(BasicLocation + SpecialLocation)
+    //sssss
+    ~ MyTime = LIST_MIN(Time)
+    //sssss
+    ~ Interactions = 20
+    //ssssss
+    It's {MyTime}, you went to the {MyLoc} 
 
-        {roll_dice(20,10) == true:->interaction|->activity}
+    {roll_dice(20,10) == true:->interaction|->activity}
         
 ===event_terminater
     ~ temp spend_time = RANDOM(2,4)
@@ -56,10 +59,11 @@
 
 ===interaction
 //With NPC
-
+    ~ TempNPC = LIST_RANDOM(NPC)
     {general_npc_generator(Day, Level)}
-
+    
     <> and found the {TempNPC} {TempName} is {LIST_RANDOM(Exercise)} here. 
+    -(continue)
     I still have {Interactions} Interaction.
     {TempVio},{Violance}
     {TempDip},{Diplomacy}
@@ -69,16 +73,16 @@
     ~ Faith -= INT((Fame - 50)*0.5)
     
     
-    +[Communicate]Communicate//Communicate (Knowledge || Diplomacy): unlock npcs and new locations, increase status,
+    +[Communicate]Communicate#Communicate (Knowledge || Diplomacy): unlock npcs and new locations, increase status,
 
-    +[Trade]//Trade (Stewardship || Gold): sell and by items/treasure if you can. 
+    +[Trade]#Trade (Stewardship || Gold): sell and by items/treasure if you can. 
 
-    +[Competition]//Competition (Violance || Intrigue)
+    +[Competition]#Competition (Violance || Intrigue)
     
-    +[I can do sth different...]//Special action (checker || status): E.g steal money, seduce opposite sex (of course homo if you can certian personality), ,  
+    +[I can do sth different...]#Special action (checker || status): E.g steal money, seduce opposite sex (of course homo if you can certian personality), ,  
 
     +[Preach!]//Preach
-        -(continue)
+        
         {faith_checker()}
         {
             - Faith > 0 and Interactions > 0:
@@ -149,6 +153,7 @@
     
 ===activity
     <> alone.
+    - (continue)
     ~ temp density = pop_density() 
-    ->END
+    -->event_terminater
     
